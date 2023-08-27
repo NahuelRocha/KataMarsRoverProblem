@@ -20,7 +20,7 @@ public class MarsRoverRobot {
 
         System.out.println("Insert L and R commands to rotate the robot and M to advance");
 
-        String commandEnter = sc.nextLine();
+        String commandEnter = sc.nextLine().toUpperCase();
 
         return commandEnter.split("");
     }
@@ -73,8 +73,11 @@ public class MarsRoverRobot {
             System.out.println("The robot is in: " + "X:" + actualX + " " + "Y:" + actualY + " looking at: " + save);
         }
 
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Continue game, YES or NO");
+            String choose = sc.nextLine().toUpperCase();
 
-
+            continueGameOrNot(actualX,actualY,save,choose);
     }
 
     private static Integer moveInY(String currentDirection, Integer y) {
@@ -132,6 +135,15 @@ public class MarsRoverRobot {
             case "E" -> "N";
             default -> "S";
         };
+
+    }
+
+    private static void continueGameOrNot(Integer x , Integer y , String currentDirection, String choose){
+
+        if (choose.equals("YES")){
+            String[] commands = getCommandsFromUserInput();
+            simulateRoverMovement(x,y,currentDirection , commands);
+        }
 
     }
 

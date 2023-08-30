@@ -33,16 +33,9 @@ public class MarsRoverRobot {
 
         for (String moving : commands) {
 
-            System.out.print("Moving");
-            try {
-                for (int i = 0; i < 3; i++) {
-                    Thread.sleep(300);
-                    System.out.print(".");
-                }
-                System.out.println();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            movingOrRoting(moving);
+
+            waitAndPrintDots();
 
 
             if (moving.equals("L")) {
@@ -60,12 +53,13 @@ public class MarsRoverRobot {
 
                 if (save.equals("N") || save.equals("S")) {
 
-                    actualX = moveInX(save, actualX);
+                    actualY = moveInY(save, actualY);
+
                 }
 
                 if (save.equals("E") || save.equals("O")) {
 
-                    actualY = moveInY(save, actualY);
+                    actualX = moveInX(save, actualX);
                 }
 
             }
@@ -74,12 +68,12 @@ public class MarsRoverRobot {
 
                 if (save.equals("N") || save.equals("S")) {
 
-                    actualX = moveBackInX(save, actualX);
+                    actualY = moveBackInY(save, actualY);
                 }
 
                 if (save.equals("E") || save.equals("O")) {
 
-                    actualY = moveBackInY(save, actualY);
+                    actualX = moveBackInX(save, actualX);
                 }
 
             }
@@ -94,9 +88,21 @@ public class MarsRoverRobot {
             continueGameOrNot(actualX,actualY,save,choose);
     }
 
+    private static void movingOrRoting(String moving){
+
+        if (moving.equals("L")) {
+            System.out.print("Rotating to the left");
+        } else if (moving.equals("R")) {
+            System.out.print("Rotating to the right");
+        } else {
+            System.out.print("Moving");
+        }
+
+    }
+
     private static Integer moveBackInY(String currentDirection, Integer y) {
 
-        if (currentDirection.equals("E")) {
+        if (currentDirection.equals("N")) {
             if (y > 0) {
                 return y - 1;
 
@@ -113,7 +119,7 @@ public class MarsRoverRobot {
 
     private static Integer moveBackInX(String currentDirection, Integer x) {
 
-        if (currentDirection.equals("N")) {
+        if (currentDirection.equals("E")) {
             if (x > 0) {
                 return x - 1;
 
@@ -132,7 +138,7 @@ public class MarsRoverRobot {
 
     private static Integer moveInY(String currentDirection, Integer y) {
 
-        if (currentDirection.equals("E")) {
+        if (currentDirection.equals("N")) {
             if (y < 10) {
                 return y + 1;
 
@@ -150,7 +156,7 @@ public class MarsRoverRobot {
 
     private static Integer moveInX(String currentDirection, Integer x) {
 
-        if (currentDirection.equals("N")) {
+        if (currentDirection.equals("E")) {
             if (x < 10) {
                 return x + 1;
 
@@ -195,6 +201,21 @@ public class MarsRoverRobot {
             simulateRoverMovement(x,y,currentDirection , commands);
         }
 
+    }
+
+    private static void waitAndPrintDots() {
+
+        try {
+            Thread.sleep(300);
+            System.out.print(".");
+            Thread.sleep(300);
+            System.out.print(".");
+            Thread.sleep(300);
+            System.out.print(".");
+            System.out.println();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
 }

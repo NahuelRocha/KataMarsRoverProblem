@@ -18,7 +18,7 @@ public class MarsRoverRobot {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Insert L and R commands to rotate the robot and M to advance");
+        System.out.println("Enter the L or R commands to rotate the robot and F or B to move forward or backward.");
 
         String commandEnter = sc.nextLine().toUpperCase();
 
@@ -56,7 +56,7 @@ public class MarsRoverRobot {
 
             }
 
-            if (moving.equals("M")) {
+            if (moving.equals("F")) {
 
                 if (save.equals("N") || save.equals("S")) {
 
@@ -70,6 +70,20 @@ public class MarsRoverRobot {
 
             }
 
+            if (moving.equals("B")) {
+
+                if (save.equals("N") || save.equals("S")) {
+
+                    actualX = moveBackInX(save, actualX);
+                }
+
+                if (save.equals("E") || save.equals("O")) {
+
+                    actualY = moveBackInY(save, actualY);
+                }
+
+            }
+
             System.out.println("The robot is in: " + "X:" + actualX + " " + "Y:" + actualY + " looking at: " + save);
         }
 
@@ -78,6 +92,42 @@ public class MarsRoverRobot {
             String choose = sc.nextLine().toUpperCase();
 
             continueGameOrNot(actualX,actualY,save,choose);
+    }
+
+    private static Integer moveBackInY(String currentDirection, Integer y) {
+
+        if (currentDirection.equals("E")) {
+            if (y > 0) {
+                return y - 1;
+
+            } else {
+                return 10;
+            }
+
+        } else if (y < 10) {
+            return y + 1;
+        } else {
+            return 0;
+        }
+    }
+
+    private static Integer moveBackInX(String currentDirection, Integer x) {
+
+        if (currentDirection.equals("N")) {
+            if (x > 0) {
+                return x - 1;
+
+            } else {
+                return 10;
+            }
+
+        } else if (x < 10) {
+            return x + 1;
+        } else {
+            return 0;
+        }
+
+
     }
 
     private static Integer moveInY(String currentDirection, Integer y) {

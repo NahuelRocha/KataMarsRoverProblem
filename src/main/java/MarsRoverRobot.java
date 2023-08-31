@@ -22,7 +22,23 @@ public class MarsRoverRobot {
 
         String commandEnter = sc.nextLine().toUpperCase();
 
-        return commandEnter.split("");
+        String[] choose = commandEnter.split("");
+
+        boolean isValid = true;
+
+        for (String letter : choose) {
+            if (!letter.equals("L") && !letter.equals("R") && !letter.equals("F") && !letter.equals("B")) {
+                isValid = false;
+                break;
+            }
+        }
+
+        if (!isValid) {
+            System.out.println("Invalid command. Please enter only L, R, F, or B.");
+            return getCommandsFromUserInput();
+        }
+
+        return choose;
     }
 
     private static void simulateRoverMovement(Integer x, Integer y, String initialDirection, String[] commands) {
@@ -81,21 +97,25 @@ public class MarsRoverRobot {
             System.out.println("The robot is in: " + "X:" + actualX + " " + "Y:" + actualY + " looking at: " + save);
         }
 
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Continue game, YES or NO");
-            String choose = sc.nextLine().toUpperCase();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Continue game, YES or NO");
+        String choose = sc.nextLine().toUpperCase();
 
-            continueGameOrNot(actualX,actualY,save,choose);
+        continueGameOrNot(actualX, actualY, save, choose);
+
+
     }
 
-    private static void movingOrRoting(String moving){
+    private static void movingOrRoting(String moving) {
 
         if (moving.equals("L")) {
             System.out.print("Rotating to the left");
         } else if (moving.equals("R")) {
             System.out.print("Rotating to the right");
+        } else if (moving.equals("F")) {
+            System.out.print("Moving forward");
         } else {
-            System.out.print("Moving");
+            System.out.print("Moving backwards");
         }
 
     }
@@ -194,11 +214,21 @@ public class MarsRoverRobot {
 
     }
 
-    private static void continueGameOrNot(Integer x , Integer y , String currentDirection, String choose){
+    private static void continueGameOrNot(Integer x, Integer y, String currentDirection, String choose) {
 
-        if (choose.equals("YES")){
+        if (choose.equals("YES")) {
             String[] commands = getCommandsFromUserInput();
-            simulateRoverMovement(x,y,currentDirection , commands);
+            simulateRoverMovement(x, y, currentDirection, commands);
+        } else if (choose.equals("NO")) {
+
+            System.out.println("Game Finish");
+
+        } else {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter YES or No , please.");
+            String newChoose = sc.nextLine().toUpperCase();
+
+            continueGameOrNot(x, y, currentDirection, newChoose);
         }
 
     }

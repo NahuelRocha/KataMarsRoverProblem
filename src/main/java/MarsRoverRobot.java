@@ -108,14 +108,11 @@ public class MarsRoverRobot {
 
     private static void movingOrRoting(String moving) {
 
-        if (moving.equals("L")) {
-            System.out.print("Rotating to the left");
-        } else if (moving.equals("R")) {
-            System.out.print("Rotating to the right");
-        } else if (moving.equals("F")) {
-            System.out.print("Moving forward");
-        } else {
-            System.out.print("Moving backwards");
+        switch (moving) {
+            case "L" -> System.out.print("Rotating to the left");
+            case "R" -> System.out.print("Rotating to the right");
+            case "F" -> System.out.print("Moving forward");
+            default -> System.out.print("Moving backwards");
         }
 
     }
